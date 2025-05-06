@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatismImage - 轻量好用的图床</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/theme.css" rel="stylesheet">
+    <script>
+        // 检测系统主题偏好
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        
+        // 监听系统主题变化
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        });
+    </script>
+</head>
+<body>
+    <div class="background-layer"></div>
+    <div class="container" id="loginBox">
+        <div class="row justify-content-center">
+            <h1 class="text-center mb-4">Catism Image</h1>
+            <h4 class="text-center mb-4">立志做真正轻量好用的图床</h4>
+            <div class="col-md-6 mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs" id="authTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">登录</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">注册</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="authTabsContent">
+                            <div class="tab-pane fade show active" id="login" role="tabpanel">
+                                <form id="loginForm">
+                                    <div class="mb-3">
+                                        <label for="loginKey" class="form-label">密钥</label>
+                                        <input type="text" class="form-control" id="loginKey" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">登录</button>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="register" role="tabpanel">
+                                <form id="registerForm">
+                                    <div class="mb-3">
+                                        <label for="registerNickname" class="form-label">昵称</label>
+                                        <input type="text" class="form-control" id="registerNickname" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">注册</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/app.js"></script>
+    <div id="toastContainer" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11"></div>
+    
+    <div class="position-fixed bottom-0 start-0 p-3" style="z-index: 11">
+        <div class="dropdown">
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                主题
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="themeDropdown">
+                <li><a class="dropdown-item" href="#" data-theme="light">浅色</a></li>
+                <li><a class="dropdown-item" href="#" data-theme="dark">深色</a></li>
+                <li><a class="dropdown-item" href="#" data-theme="auto">自动</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        document.querySelectorAll('[data-theme]').forEach(item => {
+            item.addEventListener('click', e => {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                    const theme = e.target.getAttribute('data-theme');
+                    if (theme === 'auto') {
+                        localStorage.removeItem('manualTheme');
+                        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+                    } else {
+                        localStorage.setItem('manualTheme', theme);
+                        document.documentElement.setAttribute('data-theme', theme);
+                    }
+                }
+            });
+        });
+        
+        // 防止输入框点击切换主题
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('click', e => {
+                e.stopPropagation();
+            });
+        });
+    </script>
+</body>
+</html>
