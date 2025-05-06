@@ -4,6 +4,5 @@ Flask==3.1.0
 flask_cors==5.0.1
 flask_sock==0.7.0
 Pillow==9.4.0
-Pillow==11.2.1
 pymongo==4.12.1
 python-dotenv==1.1.0
