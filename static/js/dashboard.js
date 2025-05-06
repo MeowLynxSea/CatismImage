@@ -164,7 +164,8 @@ function fetchUserTheme() {
 
 function initWebSocket() {
   const userKey = localStorage.getItem('userKey');
-  socket = new WebSocket(`ws://${window.location.host}/ws/user-info?key=${userKey}`);
+  const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+  socket = new WebSocket(`${protocol}://${window.location.host}/ws/user-info?key=${userKey}`);
   
   // 初始化时获取并应用主题
   fetchUserTheme().then(theme => {
@@ -208,7 +209,8 @@ function reconnectWebSocket() {
   
   setTimeout(() => {
     const userKey = localStorage.getItem('userKey');
-    socket = new WebSocket(`ws://${window.location.host}/ws/user-info?key=${userKey}`);
+    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+    socket = new WebSocket(`${protocol}://${window.location.host}/ws/user-info?key=${userKey}`);
     socket.onopen = function() {
       reconnectAttempts = 0;
       console.log('WebSocket重新连接成功');
