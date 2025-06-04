@@ -50,6 +50,7 @@ def upload_image():
     try:
         from PIL import Image
         import io
+        import requests
         
         # 直接使用PIL验证图片内容
         try:
@@ -59,6 +60,27 @@ def upload_image():
             file.seek(0)
         except Exception:
             return jsonify({'error': '无效的图片文件'}), 400
+            
+        # 如果启用了NSFW检查
+        if AppConfig.ENABLE_NSFW_FILTER:
+            print("NSFW检查已启用")
+            file.seek(0)
+            try:
+                response = requests.post(
+                    f"{AppConfig.NSFWPY_ENDPOINT}/classify",
+                    files={'image': file},
+                    headers={'accept': 'application/json'}
+                )
+                response.raise_for_status()
+                nsfw_data = response.json()
+                
+                # 检查NSFW评分
+                if nsfw_data.get('neutral', 0) + nsfw_data.get('drawing', 0) < 0.5:
+                    return jsonify({'error': '图片内容不符合安全标准'}), 403
+                
+                file.seek(0)
+            except Exception as e:
+                return jsonify({'error': f'NSFW检查失败: {str(e)}'}), 500
     except Exception:
         return jsonify({'error': '无效的图片文件'}), 400
         

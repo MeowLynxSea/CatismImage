@@ -16,6 +16,9 @@ class Config:
     MONGO_URI = os.getenv('MONGO_URI')
     MONGO_DB = os.getenv('MONGO_DB')
 
+    ENABLE_NSFW_FILTER = os.getenv('ENABLE_NSFW_FILTER')
+    NSFWPY_ENDPOINT = os.getenv('NSFWPY_ENDPOINT')
+
     if(S3_ACCESS_KEY == None or S3_SECRET_KEY == None or S3_BUCKET == None or S3_ENDPOINT == None):
         print("错误：缺少必需的S3环境变量")
         sys.exit(1)
