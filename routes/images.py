@@ -6,6 +6,7 @@ from models import User
 from pymongo import MongoClient
 from bson import ObjectId
 import datetime
+import requests
 
 # 初始化MongoDB连接
 client = MongoClient(AppConfig.MONGO_URI)
@@ -50,7 +51,6 @@ def upload_image():
     try:
         from PIL import Image
         import io
-        import requests
         
         # 直接使用PIL验证图片内容
         try:
