@@ -26,7 +26,7 @@ CatismImage 是一个基于Web的图片存储和管理系统，提供用户友�
 4. [可选] 配置NSFWPY
 
    如果您希望启用NSFW过滤功能，您需要配置NSFWPY。
-   
+
    请参考[HG-ha/nsfwpy](https://github.com/HG-ha/nsfwpy)，通过您喜欢的方式完成配置。
 
 5. 配置环境变量：
