@@ -47,6 +47,7 @@ CatismImage 是一个基于Web的图片存储和管理系统，提供用户友�
    # NSFW过滤配置(目前支持NSFWPY)
    ENABLE_NSFW_FILTER=true/false
    NSFWPY_ENDPOINT=your_nsfwpy_endpoint
+   NSFWPY_THRESHOLD=0.5
    ```
 
 6. 运行后端服务：

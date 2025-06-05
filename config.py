@@ -18,6 +18,7 @@ class Config:
 
     ENABLE_NSFW_FILTER = os.getenv('ENABLE_NSFW_FILTER')
     NSFWPY_ENDPOINT = os.getenv('NSFWPY_ENDPOINT')
+    NSFWPY_THRESHOLD = os.getenv('NSFWPY_THRESHOLD')
 
     if(S3_ACCESS_KEY == None or S3_SECRET_KEY == None or S3_BUCKET == None or S3_ENDPOINT == None):
         print("错误：缺少必需的S3环境变量")
