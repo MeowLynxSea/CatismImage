@@ -77,7 +77,7 @@ def upload_image():
             nsfw_data = response.json()
             
             # 检查NSFW评分
-            if nsfw_data.get('neutral', 0) + nsfw_data.get('drawing', 0) < 1 - float(AppConfig.NSFW_THRESHOLD):
+            if nsfw_data.get('neutral', 0) + nsfw_data.get('drawing', 0) < 1 - float(AppConfig.NSFWPY_THRESHOLD):
                 return jsonify({'error': '图片内容未通过NSFW检查'}), 403
             
             file.seek(0)
